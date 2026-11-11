@@ -1,7 +1,106 @@
 <!DOCTYPE html>
+
 <html>
 <body>
-  <h1>计算器</h1>
-  
+    <div>
+
+        单价1:<input type="text" id="price1" value="0.15" /> 数量1:<input type="text" id="num1" />价格1:<input type="text"
+            id="total1" /></br>
+        单价2:<input type="text" id="price2" value="0.08" /> 数量2:<input type="text" id="num2" />价格2:<input type="text"
+            id="total2" /></br>
+    </div>
+    <div>
+        总价:<input type="number" id="total" value="2001" /> 总价:<input type="number" id="factTotal" /> <br />
+        调整:<input type="number" id="adjust" value="25" />
+        <input type="button" value="+1" onclick="increase()">
+        <input type="button" value="-1" onclick="decrease()">
+    </div>
+    <div hidden>
+        数量1:<input type="text" id="num1adjust" />数量2:<input type="text" id="num2adjust" />
+    </div>
+    <div>
+        <input type="button" value="计算" onclick="calc()">
+    </div>
 </body>
+<script>
+
+    let commonMultiple = price1 * price2
+
+    function calc() {
+        let total = document.getElementById("total").value;
+
+        let price1 = document.getElementById("price1").value;
+        let price2 = document.getElementById("price2").value;
+
+        num1 = total / price1
+        setNum1(num1)
+        setNum2(0)
+        setTotal1(total)
+        setTotal2(0)
+        setNum2adjust(price1 * 100)
+        setNum1adjust(price2 * 100)
+        calcFactTotal()
+    }
+
+    function calcFactTotal() {
+        let price1 = Number(document.getElementById("price1").value);
+        let price2 = Number(document.getElementById("price2").value);
+        let num1 = Number(document.getElementById("num1").value);
+        let num2 = Number(document.getElementById("num2").value);
+
+        let num1adjust = Number(document.getElementById("num1adjust").value)
+        let num2adjust = Number(document.getElementById("num2adjust").value)
+
+        let adjust = Number(document.getElementById("adjust").value);
+
+        num1 = num1 - num1adjust * adjust
+        num2 = num2 + num2adjust * adjust
+
+        setNum1(num1)
+        setNum2(num2)
+
+        setTotal1((price1 * num1).toFixed(2))
+        setTotal2((price2 * num2).toFixed(2))
+        let total1 = document.getElementById("total1").value;
+        let total2 = document.getElementById("total2").value;
+        setFactTotal(Number(total1) + Number(total2))
+    }
+
+    function increase() {
+        let adjust = Number(document.getElementById("adjust").value);
+        adjust++;
+        document.getElementById("adjust").value = adjust
+    }
+    function decrease() {
+        let adjust = Number(document.getElementById("adjust").value);
+        adjust--;
+        if (adjust < 0) {
+            return
+        }
+        document.getElementById("adjust").value = adjust
+    }
+
+    function setNum1(val) {
+        document.getElementById("num1").value = val
+    }
+    function setNum2(val) {
+        document.getElementById("num2").value = val
+    }
+    function setTotal1(val) {
+        document.getElementById("total1").value = val
+    }
+    function setTotal2(val) {
+        document.getElementById("total2").value = val
+    }
+    function setNum1adjust(val) {
+        document.getElementById("num1adjust").value = val
+    }
+    function setNum2adjust(val) {
+        document.getElementById("num2adjust").value = val
+    }
+    function setFactTotal(val) {
+        document.getElementById("factTotal").value = val
+    }
+</script>
+
 </html>
